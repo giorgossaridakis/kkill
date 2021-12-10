@@ -67,10 +67,8 @@ int readfileentry(int fd, char *line)
     line[i]='\0';
 
     // file ended, close file descriptor
-    if (nread==0) {
-     close(fd);
+    if (nread==0) 
      return -1;
-    }
     
  return isseparationchar(buf[0]);
 }
