@@ -5,7 +5,8 @@ simply kkill program1 program2 ...
 
 will send a kill signal to all processes running that match the parameters
 
-depending on your system, change const char psflags and PROCESSPOSITION, PROGRAMPOSITION
+depending on your system, change const char psflags and PROCESSPOSITION, PROGRAMPOSITION (counting from zero).
 
-as it is now, it is configured for Ubuntu/Debian. I have no plans on expanding the code
+as it is now, it is configured for Ubuntu/Debian. I don't plan to expand the code
 
+use and modfy at your own risk :)
