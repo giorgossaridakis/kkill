@@ -5,24 +5,24 @@
 #include <string.h>
 #include <unistd.h> 
 
+// constants
 #define MAXNAME 80
 #define PROCESSPOSITION 1
 #define PROGRAMPOSITION 7
-enum { NONE=0, WORD, LINE };
 const char *psflags="ef";
+const char *signal="9";
+enum { NONE=0, WORD, LINE };
 
+// functions
 int readfileentry(int fd, char *line);
 unsigned int isseparationchar(char t);
 
 int main(int argc, char *argv[])
 {
-  int i, i1, fd, process, nread;
+  int i, i1, fd, process, nread, count=0;
   char tmpfile[L_tmpnam + 1];
   char program[MAXNAME], line[MAXNAME*2];
   tmpnam(tmpfile);
-  
-  if (argc<2)
-   return -1;
   
   for (i=1, i1=0;i<argc;i++) {
    strcpy(program, argv[i]);
@@ -34,8 +34,9 @@ int main(int argc, char *argv[])
      process=atoi(line);
     if (i1==PROGRAMPOSITION && !strcmp(program, line)) {
 //      printf("process: %d\n", process);
-     sprintf(line, "kill -9 %d\n", process);
+     sprintf(line, "kill -%s %d\n", signal, process);
      system(line);
+     ++count;
     }
     if (nread==LINE)
      i1=0;
@@ -47,7 +48,7 @@ int main(int argc, char *argv[])
   
   unlink(tmpfile);
     
- return 0;
+ return count;
 }
 
 // read entry from file
