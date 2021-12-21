@@ -11,4 +11,6 @@ PROCESSPOSITION, PROGRAMPOSITION (counting from zero).
 
 as it is now, it is configured for Ubuntu/Debian. I don't plan to expand the code.
 
+kkiller works in the same way, only it becomes tsr, pauses for 1 second and sends a signal to requested processes, as they become active.
+
 use and modfy at your own risk :)
