@@ -72,11 +72,10 @@ int main(int argc, char *argv[])
    }
    close(fd);
    }
+   unlink(tmpfile);
    sleep(1);
-  } 
+  }
   
-  
-  unlink(tmpfile);
     
  return count;
 }
