@@ -15,4 +15,4 @@ kkiller works in the same way, only it becomes tsr, pauses for 1 second and send
 
 use kkill to kill kkiller ;)
 
-use and modfy at your own risk :)
+use and modfy at your own risk
