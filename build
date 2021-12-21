@@ -1,2 +1,3 @@
 #!/bin/sh
 cc -okkill kkill.c
+cc -okkiller kkiller.c
