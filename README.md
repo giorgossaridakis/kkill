@@ -13,4 +13,6 @@ as it is now, it is configured for Ubuntu/Debian. I don't plan to expand the cod
 
 kkiller works in the same way, only it becomes tsr, pauses for 1 second and sends a signal to requested processes, as they become active.
 
+use kkill to kill kkiller ;)
+
 use and modfy at your own risk :)
