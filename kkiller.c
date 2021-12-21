@@ -45,28 +45,36 @@ int main(int argc, char *argv[])
   if (optind == argc)
    showusage();
   
-  for (i=optind, i1=0;i<argc;i++) {
-   strcpy(program, argv[i]);
-   sprintf(line, "ps -%s|grep %s >%s\n", psflags, program, tmpfile);
-   system(line);
-   fd=open(tmpfile, O_RDONLY);
-   while ((nread=readfileentry(fd, line))>-1) {
-    if (i1==PROCESSPOSITION)
-     process=atoi(line);
-    if (i1==PROGRAMPOSITION && (findsimple(line, program))) {
-     sprintf(line2, "kill -%s %d >/dev/null 2>&1\n", signal, process);
-     if (WEXITSTATUS(system(line2)))
-      printf("impossible: %d %s\n", process, line);
-     else
-      ++count;
-    }
+  i=fork();
+  if (i>0) {
+   printf("kkiller active with process %d\n", i);
+   return 0;
+  }
+  
+  while (1) {
+   for (i=optind, i1=0;i<argc;i++) {
+    strcpy(program, argv[i]);
+    sprintf(line, "ps -%s|grep %s >%s\n", psflags, program, tmpfile);
+    system(line);
+    fd=open(tmpfile, O_RDONLY);
+    while ((nread=readfileentry(fd, line))>-1) {
+     if (i1==PROCESSPOSITION)
+      process=atoi(line);
+     if (i1==PROGRAMPOSITION && (findsimple(line, program))) {
+      sprintf(line2, "kill -%s %d >/dev/null 2>&1\n", signal, process);
+      if (WEXITSTATUS(system(line2))==0)
+       ++count;
+     }
     if (nread==LINE)
      i1=0;
     if (nread==WORD)
      ++i1;
    }
    close(fd);
-  }
+   }
+   sleep(1);
+  } 
+  
   
   unlink(tmpfile);
     
